@@ -1,7 +1,4 @@
-# iOS-haptic-keyboard
-![Swift Version](https://img.shields.io/badge/Swift%20Version-4.0-orange.svg)
-![XCode](https://img.shields.io/badge/XCode%20Version-10.0-blue.svg)
+# Swiftyboard
 
-This is a very basic iOS keyboard that uses the taptic engine.
-![Screenshot](https://i.imgur.com/OKHSfl7.jpg)
-# swiftyboard
+This is an iOS keyboard project that aims to reimplement all features from the native Apple keyboard, while remaining free and open-source.
+Some of the features planned include spell-checking, neural-network based next word suggestions, swiping to type and voice dictation based on distilled huggingface speech recognition models.
