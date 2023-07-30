@@ -29,7 +29,11 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func handleKeyPress(key: String) {
-        print("THE KEY HAS BEEN PRESSED \(key)")
+        if (key == "⌫") {
+            textDocumentProxy.deleteBackward()
+        } else {
+            textDocumentProxy.insertText(key)
+        }
     }
     
     @objc func type(){

@@ -31,30 +31,41 @@ class KeyboardColors {
     )
 }
 
+enum KeyMode {
+    case lower, upper, numeric, symbol, emoji
+}
+
 struct KeyboardView: View {
     var keyHandler: ((String) -> Void)
-    let keyboardLayout: [[String]] = [
+    
+    let lowercaseLayout: [[String]] = [
+        ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+        ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+        ["<shift>", "z", "x", "c", "v", "b", "n", "m", "⌫"]
+    ]
+    
+    let uppercaseLayout: [[String]] = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
         ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
         ["<shift>", "Z", "X", "C", "V", "B", "N", "M", "⌫"]
     ]
-
-    @State private var inputText = ""
+    
+    @State private var keyboardMode = KeyMode.lower
     
     var body: some View {
         VStack(spacing: 8) {
-            //            TextField("Enter text", text: $inputText)
-            //                .textFieldStyle(RoundedBorderTextFieldStyle())
-            //                .padding(.horizontal)
-            //                .disabled(true) // Disable editing; this is just for display purposes
             
             VStack(spacing: 11) {
-                ForEach(keyboardLayout, id: \.self) { row in
+                
+                ForEach((keyboardMode == KeyMode.lower ? lowercaseLayout : uppercaseLayout), id: \.self) { row in
                     HStack(spacing: 3) {
                         ForEach(row, id: \.self) { key in
                             if (key == "<shift>") {
-                                KeyboardSymbolButton(symbolName: "shift", action: {
-                                    keyHandler("<shift>")
+                                KeyboardSymbolButton(symbolName:
+                                                        (keyboardMode == KeyMode.lower) ?
+                                                     "shift" : "shift.fill", action: {
+                                    
+                                    keyboardMode = (keyboardMode == KeyMode.lower) ? KeyMode.upper : KeyMode.lower
                                 })
                             } else {
                                 KeyboardLetterButton(title: key, action: {
@@ -69,19 +80,6 @@ struct KeyboardView: View {
         }
         .background(KeyboardColors.backgroundColor.edgesIgnoringSafeArea(.all))
         .foregroundColor(.white)
-    }
-    
-    func handleKeyPress(key: String) {
-        // Handle key press actions here (e.g., appending the key's text to the inputText)
-        if key == "⌫" {
-            if !inputText.isEmpty {
-                inputText.removeLast()
-            }
-        } else if key == "⬆️" {
-            // Handle keyboard shift or other actions if needed
-        } else {
-            inputText.append(key)
-        }
     }
 }
 
