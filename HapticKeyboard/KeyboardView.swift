@@ -35,13 +35,34 @@ enum KeyMode {
     case lower, upper, numeric, symbol, emoji
 }
 
+class SpecialKeys {
+    static let shift = "<shift>"
+    static let numpad = "<numpad>"
+    static let emoji = "<emoji>"
+    static let spacebar = "<spacebar>"
+    static let backspace = "<backspace>"
+    static let enter = "<return>"
+    
+    static func isSpecialKey(key: String) -> Bool {
+        return [
+            SpecialKeys.shift,
+            SpecialKeys.numpad,
+            SpecialKeys.emoji,
+            SpecialKeys.backspace,
+            SpecialKeys.spacebar,
+            SpecialKeys.enter,
+        ].contains(key)
+    }
+}
+
 struct KeyboardView: View {
     var keyHandler: ((String) -> Void)
     
     let lowercaseLayout: [[String]] = [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-        ["<shift>", "z", "x", "c", "v", "b", "n", "m", "⌫"]
+        [SpecialKeys.shift, "z", "x", "c", "v", "b", "n", "m", "⌫"],
+        ["@", SpecialKeys.emoji, SpecialKeys.spacebar, ",", SpecialKeys.enter]
     ]
     
     let uppercaseLayout: [[String]] = [
@@ -60,13 +81,31 @@ struct KeyboardView: View {
                 ForEach((keyboardMode == KeyMode.lower ? lowercaseLayout : uppercaseLayout), id: \.self) { row in
                     HStack(spacing: 3) {
                         ForEach(row, id: \.self) { key in
-                            if (key == "<shift>") {
-                                KeyboardSymbolButton(symbolName:
-                                                        (keyboardMode == KeyMode.lower) ?
-                                                     "shift" : "shift.fill", action: {
-                                    
-                                    keyboardMode = (keyboardMode == KeyMode.lower) ? KeyMode.upper : KeyMode.lower
-                                })
+                            if (SpecialKeys.isSpecialKey(key: key)) {
+                                
+                                if (key == SpecialKeys.shift) {
+                                    KeyboardSymbolButton(symbolName:
+                                                            (keyboardMode == KeyMode.lower) ?
+                                                         "shift" : "shift.fill",
+                                                         widthMultiplier: 2,
+                                                         action: {
+                                        
+                                        keyboardMode = (keyboardMode == KeyMode.lower) ? KeyMode.upper : KeyMode.lower
+                                    })
+                                } else if (key == SpecialKeys.spacebar) {
+                                    KeyboardSymbolButton(symbolName: "space",
+                                                         widthMultiplier: 5,
+                                                         action: {
+                                        keyHandler(" ")
+                                    })
+                                } else if (key == SpecialKeys.enter) {
+                                    KeyboardSymbolButton(symbolName: "return",
+                                                         widthMultiplier: 2,
+                                                         action: {
+                                        keyHandler("\n")
+                                    })
+                                }
+                                
                             } else {
                                 KeyboardLetterButton(title: key, action: {
                                     keyHandler(key)
@@ -118,13 +157,14 @@ struct KeyboardLetterButton: View {
 
 struct KeyboardSymbolButton: View {
     let symbolName: String
+    let widthMultiplier: Int
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
             Image(systemName: symbolName)
                 .font(.system(size: 18.0))
-                .frame(width: 33, height: 44)
+                .frame(width: 33 * Double(widthMultiplier), height: 44)
                 .background(KeyboardColors.lightKeyColor)
                 .cornerRadius(7)
         }
