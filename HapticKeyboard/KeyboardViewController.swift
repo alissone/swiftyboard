@@ -29,7 +29,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func handleKeyPress(key: String) {
-        if (key == "⌫") {
+        if (key == SpecialKeys.backspace) {
             textDocumentProxy.deleteBackward()
         } else {
             textDocumentProxy.insertText(key)

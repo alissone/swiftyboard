@@ -32,27 +32,7 @@ class KeyboardColors {
 }
 
 enum KeyMode {
-    case lower, upper, numeric, symbol, emoji
-}
-
-class SpecialKeys {
-    static let shift = "<shift>"
-    static let numpad = "<numpad>"
-    static let emoji = "<emoji>"
-    static let spacebar = "<spacebar>"
-    static let backspace = "<backspace>"
-    static let enter = "<return>"
-    
-    static func isSpecialKey(key: String) -> Bool {
-        return [
-            SpecialKeys.shift,
-            SpecialKeys.numpad,
-            SpecialKeys.emoji,
-            SpecialKeys.backspace,
-            SpecialKeys.spacebar,
-            SpecialKeys.enter,
-        ].contains(key)
-    }
+    case lower, oneUpper, upper, numeric, symbol, emoji
 }
 
 struct KeyboardView: View {
@@ -61,15 +41,15 @@ struct KeyboardView: View {
     let lowercaseLayout: [[String]] = [
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-        [SpecialKeys.shift, "z", "x", "c", "v", "b", "n", "m", "⌫"],
-        [SpecialKeys.numpad, SpecialKeys.emoji, SpecialKeys.spacebar, ".", SpecialKeys.enter]
+        [SpecialKeys.shift, "z", "x", "c", "v", "b", "n", "m", SpecialKeys.backspace],
+        [SpecialKeys.numpad, SpecialKeys.emoji, SpecialKeys.spacebar, ",", SpecialKeys.enter]
     ]
     
     let uppercaseLayout: [[String]] = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
         ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-        [SpecialKeys.shift, "Z", "X", "C", "V", "B", "N", "M", "⌫"],
-        [SpecialKeys.numpad, SpecialKeys.emoji, SpecialKeys.spacebar, ".", SpecialKeys.enter]
+        [SpecialKeys.shift, "Z", "X", "C", "V", "B", "N", "M", SpecialKeys.backspace],
+        [SpecialKeys.numpad, SpecialKeys.emoji, SpecialKeys.spacebar, ",", SpecialKeys.enter]
     ]
     
     @State private var keyboardMode = KeyMode.lower
@@ -91,14 +71,21 @@ struct KeyboardView: View {
 
                                                          keyWidth: .medium,
                                                          action: {
-                                        
                                         keyboardMode = (keyboardMode == KeyMode.lower) ? KeyMode.upper : KeyMode.lower
                                     })
+                                    Spacer()
                                 } else if (key == SpecialKeys.spacebar) {
                                     KeyboardSymbolButton(symbolName: "space",
                                                          keyWidth: .spacebar,
                                                          action: {
                                         keyHandler(" ")
+                                    })
+                                } else if (key == SpecialKeys.backspace) {
+                                    Spacer()
+                                    KeyboardSymbolButton(symbolName: "delete.left",
+                                                         keyWidth: .medium,
+                                                         action: {
+                                        keyHandler(SpecialKeys.backspace)
                                     })
                                 } else if (key == SpecialKeys.numpad) {
                                     KeyboardSymbolButton(symbolName: "number",

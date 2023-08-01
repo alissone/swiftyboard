@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360B18AF2A797E99002AB2A3 /* KeyboardKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B18AE2A797E99002AB2A3 /* KeyboardKeys.swift */; };
+		360B18B12A797F07002AB2A3 /* SpecialKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B18B02A797F07002AB2A3 /* SpecialKeys.swift */; };
+		360B18B22A797F24002AB2A3 /* SpecialKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B18B02A797F07002AB2A3 /* SpecialKeys.swift */; };
 		369CA6B82A76837500A0C259 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369CA6B72A76837500A0C259 /* KeyboardView.swift */; };
 		369CA6B92A76837500A0C259 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369CA6B72A76837500A0C259 /* KeyboardView.swift */; };
 		D3DDAEFE20E289EF00D5F230 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DDAEFD20E289EF00D5F230 /* AppDelegate.swift */; };
@@ -43,6 +46,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		360B18AE2A797E99002AB2A3 /* KeyboardKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardKeys.swift; sourceTree = SOURCE_ROOT; };
+		360B18B02A797F07002AB2A3 /* SpecialKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialKeys.swift; sourceTree = "<group>"; };
 		369CA6B72A76837500A0C259 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		D3DDAEFA20E289EF00D5F230 /* Custom Keyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Custom Keyboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3DDAEFD20E289EF00D5F230 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,9 +113,11 @@
 		D3DF404720E28B460055C9F2 /* HapticKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				360B18AE2A797E99002AB2A3 /* KeyboardKeys.swift */,
 				D3DF404820E28B460055C9F2 /* KeyboardViewController.swift */,
 				D3DF404A20E28B460055C9F2 /* Info.plist */,
 				369CA6B72A76837500A0C259 /* KeyboardView.swift */,
+				360B18B02A797F07002AB2A3 /* SpecialKeys.swift */,
 			);
 			path = HapticKeyboard;
 			sourceTree = "<group>";
@@ -217,7 +224,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				369CA6B82A76837500A0C259 /* KeyboardView.swift in Sources */,
+				360B18B22A797F24002AB2A3 /* SpecialKeys.swift in Sources */,
 				D3DDAF0020E289EF00D5F230 /* ViewController.swift in Sources */,
+				360B18AF2A797E99002AB2A3 /* KeyboardKeys.swift in Sources */,
 				D3DDAEFE20E289EF00D5F230 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +237,7 @@
 			files = (
 				D3DF404920E28B460055C9F2 /* KeyboardViewController.swift in Sources */,
 				369CA6B92A76837500A0C259 /* KeyboardView.swift in Sources */,
+				360B18B12A797F07002AB2A3 /* SpecialKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
