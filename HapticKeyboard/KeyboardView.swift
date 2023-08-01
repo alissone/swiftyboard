@@ -62,13 +62,14 @@ struct KeyboardView: View {
         ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
         [SpecialKeys.shift, "z", "x", "c", "v", "b", "n", "m", "⌫"],
-        ["@", SpecialKeys.emoji, SpecialKeys.spacebar, ",", SpecialKeys.enter]
+        [SpecialKeys.numpad, SpecialKeys.emoji, SpecialKeys.spacebar, ".", SpecialKeys.enter]
     ]
     
     let uppercaseLayout: [[String]] = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
         ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-        ["<shift>", "Z", "X", "C", "V", "B", "N", "M", "⌫"]
+        [SpecialKeys.shift, "Z", "X", "C", "V", "B", "N", "M", "⌫"],
+        [SpecialKeys.numpad, SpecialKeys.emoji, SpecialKeys.spacebar, ".", SpecialKeys.enter]
     ]
     
     @State private var keyboardMode = KeyMode.lower
@@ -87,20 +88,33 @@ struct KeyboardView: View {
                                     KeyboardSymbolButton(symbolName:
                                                             (keyboardMode == KeyMode.lower) ?
                                                          "shift" : "shift.fill",
-                                                         widthMultiplier: 2,
+
+                                                         keyWidth: .medium,
                                                          action: {
                                         
                                         keyboardMode = (keyboardMode == KeyMode.lower) ? KeyMode.upper : KeyMode.lower
                                     })
                                 } else if (key == SpecialKeys.spacebar) {
                                     KeyboardSymbolButton(symbolName: "space",
-                                                         widthMultiplier: 5,
+                                                         keyWidth: .spacebar,
                                                          action: {
                                         keyHandler(" ")
                                     })
+                                } else if (key == SpecialKeys.numpad) {
+                                    KeyboardSymbolButton(symbolName: "number",
+                                                         keyWidth: .medium,
+                                                         action: {
+                                        print("numpad")
+                                    })
+                                } else if (key == SpecialKeys.emoji) {
+                                    KeyboardSymbolButton(symbolName: "face.smiling.inverse",
+                                                         keyWidth: .medium,
+                                                         action: {
+                                        print("emoji")
+                                    })
                                 } else if (key == SpecialKeys.enter) {
                                     KeyboardSymbolButton(symbolName: "return",
-                                                         widthMultiplier: 2,
+                                                         keyWidth: .medium,
                                                          action: {
                                         keyHandler("\n")
                                     })
@@ -157,14 +171,14 @@ struct KeyboardLetterButton: View {
 
 struct KeyboardSymbolButton: View {
     let symbolName: String
-    let widthMultiplier: Int
+    let keyWidth: KeyWidth
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
             Image(systemName: symbolName)
                 .font(.system(size: 18.0))
-                .frame(width: 33 * Double(widthMultiplier), height: 44)
+                .frame(width: CGFloat(getKeyWidth(preset: keyWidth)), height: 44)
                 .background(KeyboardColors.lightKeyColor)
                 .cornerRadius(7)
         }
