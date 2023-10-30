@@ -173,11 +173,11 @@ struct KeyboardSymbolButton: View {
 }
 
 struct KeyboardView_Previews: PreviewProvider {
-    func emptyFunction(str: String) {
-        print(str)
+    static let emptyFunction: (String) -> () = { text in
+        print(text)
     }
-
+    
     static var previews: some View {
-        KeyboardView(keyHandler: emptyFunction as! (String) -> Void)
+        KeyboardView(keyHandler: emptyFunction)
     }
 }
